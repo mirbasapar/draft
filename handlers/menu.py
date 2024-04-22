@@ -27,16 +27,16 @@ async def start_cmd(message: types.Message):
     await message.answer(f'Категорий меню:', reply_markup=kb)
 
 
-categories = ['закуски', 'салаты', 'супы', 'открытый огонь и хоспер', 'сезоны кыргызстана', 
-        'мясо, рыба, птица', 'гарниры', 'на компанию', 'десерты', 'хлеб и выпечка']
+categories = ['Закуски', 'Салаты', 'Супы', 'Открытый огонь и Хоспер', 'Сезоны Кыргызстана', 
+        'Мясо, Рыба, Птица', 'Гарниры', 'На Компанию', 'Десерты', 'Хлеб и Выпечка']
 
 
-menu_router.message(F.text.lower().in_(categories))
+menu_router.message(F.text.in_(categories))
 async def show_menu(message: types.Message):
-    category = message.text.lower()
+    category = message.text
     print(category)
     kb = types.ReplyKeyboardRemove()
-    category = await database.fetch(
+    data = await database.fetch(
         """
         SELECT f.* FROM menu m JOIN foods f 
         on m.id = f.menu_id WHERE m.name = ?
@@ -46,7 +46,7 @@ async def show_menu(message: types.Message):
     )
     if not data:
         await message.answer('По вашему запросу ничего не найдено', reply_markup=kb)
-    await message.answer(f'Все категории меню  - {menu}:')
+    await message.answer(f'Все категории меню  - {category}:')
     for food in data:
         price = food['price']
         name = food['name']
