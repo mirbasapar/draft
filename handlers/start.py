@@ -8,7 +8,8 @@ start_router = Router()
 
 @start_router.message(Command('start'))
 async def start_cmd(message: types.Message):
-    await message.answer(f'{message.from_user.first_name}, ресторан "Барашек" Вас приветствует!', reply_markup=start_kb())
+    await message.answer(f'Здравствуйте {message.from_user.first_name}!\n'
+                         f'Добро пожаловать в ресторан "Барашек".', reply_markup=start_kb())
 
 
 @start_router.message(Command('myinfo'))

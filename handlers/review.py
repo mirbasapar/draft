@@ -111,9 +111,9 @@ async def process_clean(message: types.Message, state: FSMContext):
     await state.update_data(add_comment=message.text)
     data = await state.get_data()
     print("~", data)
-    # cursor.execute(
-    #     "INSERT INTO review (name, contact, date_visit, food_quality, clean_est, add_comment) VALUES (?, ?, ?, ?, ?, ?)",
-    #     (data['name'], data['contact'], data['date_visit'], data['food_quality'], data['clean_est'], data['add_comment'])
-    # )
+    await database.execute(
+        "INSERT INTO review (name, contact, date_visit, food_quality, clean_est, add_comment) VALUES (?, ?, ?, ?, ?, ?)",
+        (data['name'], data['contact'], data['date_visit'], data['food_quality'], data['clean_est'], data['add_comment'])
+    )
     await message.answer('Мы отправили ваш отзыв!')
     await state.clear()

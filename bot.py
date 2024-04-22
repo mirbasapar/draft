@@ -9,7 +9,7 @@ load_dotenv()
 bot = Bot(token=getenv('BOT_TOKEN'))
 dp = Dispatcher()
 database = Database(
-    Path(__file__).parent / "da.sqlite"
+    Path(__file__).parent / "db.sqlite"
 )
 
 
